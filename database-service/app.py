@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import sqlite3
+import os
 
 app = Flask(__name__)
 
@@ -57,4 +58,5 @@ def get_students_by_subject():
     return jsonify([dict(row) for row in students])
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=5002, debug=debug_mode)  # noqa: S104 - container needs to bind all interfaces

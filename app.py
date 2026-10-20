@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 client = OpenAI(
     base_url=OLLAMA_BASE_URL,
-    api_key="ollama"
+    api_key="ollama",  # pragma: allowlist secret
 )
 
 PROMPT_DIR = Path(__file__).with_name("prompts")
@@ -225,4 +225,5 @@ def ask_with_context():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug_mode)

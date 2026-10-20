@@ -3,13 +3,17 @@ import os
 import sqlite3
 import time
 import uuid
+import logging
 import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from xmlrpc import client
 
 import chromadb
 import requests
+
+logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
 APP_DIR = BASE_DIR.parent
@@ -88,10 +92,16 @@ def get_collection():
 def reset_collection() -> None:
     global _collection
     client = chromadb.PersistentClient(path=str(CHROMA_PATH))
+
     try:
         client.delete_collection(name=COLLECTION_NAME)
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.warning(
+            "Could not delete existing collection %s: %s",
+            COLLECTION_NAME,
+            exc,
+        )
+
     _collection = client.get_or_create_collection(name=COLLECTION_NAME)
 
 
