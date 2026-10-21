@@ -26,19 +26,21 @@
         <h2>MCP Tools</h2>
 
         <div class="feature-actions">
+            <!-- Local deployment: hx-post="http://localhost:5001/mcp/student-count" -->
             <button
                 type="button"
                 class="mcp-action"
-                hx-post="http://localhost:5001/mcp/student-count"
+                hx-post="/mcp/student-count"
                 hx-target="#mcp-result"
                 hx-swap="innerHTML"
             >Get Student Count</button>
         </div>
 
+        <!-- Local deployment: hx-post="http://localhost:5001/mcp/students-by-subject" -->
         <form
             id="mcp-subject-form"
             class="feature-form"
-            hx-post="http://localhost:5001/mcp/students-by-subject"
+            hx-post="/mcp/students-by-subject"
             hx-target="#mcp-result"
             hx-swap="innerHTML"
         >
@@ -47,10 +49,11 @@
             <button type="submit" class="mcp-action">Run Tool</button>
         </form>
 
+        <!-- Local deployment: hx-post="http://localhost:5001/mcp/project-files" -->
         <form
             id="mcp-project-form"
             class="feature-form"
-            hx-post="http://localhost:5001/mcp/project-files"
+            hx-post="/mcp/project-files"
             hx-target="#mcp-result"
             hx-swap="innerHTML"
         >

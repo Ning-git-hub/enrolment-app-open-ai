@@ -50,7 +50,9 @@
 </section>
 
 <script>
-const apiBase = "http://localhost:5001";
+// Local deployment: const apiBase = "http://localhost:5001";
+const apiBase = ""; // Cloud deployment: relative path, proxied by nginx to enrolment-service
+
 const output = document.getElementById("rag-results");
 const ragModeToggle = document.getElementById("rag-mode-toggle");
 const ragModeState = document.getElementById("rag-mode-state");
@@ -108,7 +110,9 @@ async function postForm(path, data) {
         },
         body: new URLSearchParams(data),
     });
+
     const text = await res.text();
+
     try {
         return JSON.parse(text);
     } catch {
@@ -146,6 +150,7 @@ document.getElementById("rag-answer-form").addEventListener("submit", async (e) 
 });
 
 loadRagMode();
+
 if (!isRagEnabled()) {
     renderRagDisabledMessage();
 }
